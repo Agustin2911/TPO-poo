@@ -45,15 +45,11 @@ public class ventana_autopartes extends JFrame{
         boton_modificar_autoparte.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 if(boton_seleccionado!=null){
-                ventana_modificar_autopartes ventana= new ventana_modificar_autopartes(ventana_autopartes.this, interfaz);
+                ventana_modificar_autopartes ventana= new ventana_modificar_autopartes(ventana_autopartes.this, interfaz,boton_seleccionado);
                 }
             }
         });
         contenedor_derecho.add(boton_modificar_autoparte);
-        JButton boton_modificar_stock= new JButton("modificar stock");
-        boton_modificar_stock.setBackground(new Color(0, 102, 204)); // Cambiar el color de fondo del botón
-        boton_modificar_stock.setForeground(Color.WHITE); // Cambiar el color del texto a blanco
-        contenedor_derecho.add(boton_modificar_stock);
         ventana_hija.setVisible(true);
         JPanel contenedor_izquierdo=new JPanel();
         contenedor_izquierdo.setSize(800,600);
@@ -114,6 +110,8 @@ public class ventana_autopartes extends JFrame{
             });
 
             barra.revalidate();
-            barra.repaint();}
+            barra.repaint();
+            
+        }
 
 }

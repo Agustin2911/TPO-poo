@@ -24,9 +24,9 @@ public class sistemaAutoparte {
        catalogo.listaAutopartes();
     }
 
-    public void modificarAutoparte(int id, String denominacion, String descripcion, String categoria, String marca, String vehiculo,
+    public void modificarAutoparte(autoparte x, String denominacion, String descripcion, String categoria, String marca, String vehiculo,
     String precio, Integer stock, Integer stockMinimo, String enlace) {
-       catalogo.actualizarAutoparte(id, denominacion,  descripcion, categoria,  marca,  vehiculo,precio, stock, stockMinimo, enlace);
+       catalogo.actualizarAutoparte(x, denominacion,  descripcion, categoria,  marca,  vehiculo,precio, stock, stockMinimo, enlace);
     } 
 
     public void modificarStock( Integer id, Integer cantNueva) {

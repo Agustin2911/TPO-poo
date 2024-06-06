@@ -28,22 +28,21 @@ public class catalogo{
         }
     } 
 
-    public void actualizarAutoparte(Integer id,String denominacion_m, String descripcion_m, String categoria_m, String marca_m, String vehiculo_m,
+    public void actualizarAutoparte(autoparte x,String denominacion_m, String descripcion_m, String categoria_m, String marca_m, String vehiculo_m,
     String precio_m, Integer stock_m, Integer stockMinimo_m, String enlace_m){
-        Integer x=buscarAutoparte(id);
-        if(x !=-1){
-        autoparte ap=autopartes.get(x);
-                ap.denominacion=denominacion_m;
-                ap.descripcion=descripcion_m;
-                ap.categoria=categoria_m;
-                ap.marca=marca_m;
-                ap.vehiculo=vehiculo_m;
-                ap.setprecio(precio_m);
-                ap.setstock(stock_m);
-                ap.setstock(stockMinimo_m);                
-                ap.enlace=enlace_m;
-        }
+        Integer  idx=autopartes.indexOf(x);
+        autoparte ap=autopartes.get(idx);
+        ap.denominacion=denominacion_m;
+        ap.descripcion=descripcion_m;
+        ap.categoria=categoria_m;
+        ap.marca=marca_m;
+        ap.vehiculo=vehiculo_m;
+        ap.setprecio(precio_m);
+        ap.setstock(stock_m);
+        ap.setstock(stockMinimo_m);                
+        ap.enlace=enlace_m;
     }
+    
     public void modificarStock(Integer id,Integer cant_stock){
         Integer x=buscarAutoparte(id);
         if(x !=-1){
