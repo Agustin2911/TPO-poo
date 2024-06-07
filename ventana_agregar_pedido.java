@@ -1,52 +1,133 @@
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 public class ventana_agregar_pedido extends JFrame {
-    public JPanel panel;
-    private JPanel botones;
-    private ScrollPane barra;
-    ventana_agregar_pedido(sistemaAutoparte x){
-        sistemaAutoparte interfaz=x;
-        setSize(800,600);
-        setLayout(new GridLayout(6,1,10,10));
-        LocalDate dia= LocalDate.now();
-        JLabel fecha= new JLabel("fecha: ");
-        fecha.setPreferredSize(new Dimension(400,100));
-        JTextField entrada_fecha=new JTextField(String.valueOf(dia));
-        entrada_fecha.setPreferredSize(new Dimension(400,100));
-        add(fecha);
-        add(entrada_fecha);
-        JLabel etiqueta_agregar=new JLabel("agregar autopartes al pedido: ");
-        add(etiqueta_agregar);
-        barra=new ScrollPane();
-        add(barra);
-        barra.setSize(400, 200);
+    private JPanel panel; // Panel para mostrar componentes añadidos dinámicamente
+    private JPanel botones; // Panel para contener botones
+    private ScrollPane barra; // ScrollPane para hacer los botones desplazables
+    private sistemaAutoparte interfaz; // Interfaz al sistema (se asume que está definido en otra parte)
+    public cliente_mostrar cliente;
+    public ArrayList<autoparte> repuestos;
+    public ArrayList<Integer> cant;
+    public ventana_agregar_pedido(sistemaAutoparte x) {
+        interfaz = x;
+
+        // Configuración de la ventana
+        setSize(800, 600);
+        setLayout(new BorderLayout());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Configuración del panel central
+        JPanel centro = new JPanel();
+        centro.setPreferredSize(new Dimension(600, 400));
+        centro.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // Componentes de fecha
+        LocalDate dia = LocalDate.now();
+        JLabel fecha = new JLabel("Fecha: ");
+        fecha.setPreferredSize(new Dimension(100, 30));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        centro.add(fecha, gbc);
+
+        JTextField entrada_fecha = new JTextField(String.valueOf(dia));
+        entrada_fecha.setPreferredSize(new Dimension(150, 30));
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        centro.add(entrada_fecha, gbc);
+
+        // Etiqueta para agregar partes
+        JLabel etiqueta_agregar = new JLabel("Agregar autopartes al pedido: ");
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        centro.add(etiqueta_agregar, gbc);
+        
+        autoparte[] opciones = {};
+        JComboBox<autoparte> comboBox = new JComboBox<>(opciones);
+        comboBox.setPreferredSize(new Dimension(150, 30));
+        gbc.gridx=1;
+        gbc.gridy=1;
+        gbc.gridwidth=1;
+        centro.add(comboBox,gbc);
+        JTextField cantidad = new JTextField("Cantidad");
+        cantidad.setPreferredSize(new Dimension(80, 30));
+        gbc.gridx=2;
+        gbc.gridy=1;
+        gbc.gridwidth=1;
+        centro.add(cantidad,gbc);      
+        JButton agregarButton = new JButton("Agregar");
+        agregarButton.setPreferredSize(new Dimension(100, 30));
+        gbc.gridx=3;
+        gbc.gridy=1;
+        gbc.gridwidth=1;
+        centro.add(agregarButton,gbc);
+        // Añadir componentes al panel principal
+ 
+        // ScrollPane para botones
+        barra = new ScrollPane();
+        barra.setPreferredSize(new Dimension(400, 200));
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        centro.add(barra, gbc);
+
         botones = new JPanel();
         botones.setLayout(new BoxLayout(botones, BoxLayout.Y_AXIS));
         barra.add(botones);
-        panel=new JPanel();
-        add(panel);
-        JButton agregar_cliente=new JButton("agregar cliente");
+
+        // Panel para componentes dinámicos
+        panel = new JPanel();
+        panel.setPreferredSize(new Dimension(400, 100));
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        centro.add(panel, gbc);
+
+        JLabel titulo_cliente=new JLabel("cliente: ");
+        gbc.gridx=0;
+        gbc.gridy=3;
+        gbc.gridwidth=1;
+        centro.add(titulo_cliente,gbc);
+
+        JButton agregar_cliente = new JButton("Agregar cliente");
         agregar_cliente.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                ventana_agregar_cliente ventana = new ventana_agregar_cliente(ventana_agregar_pedido.this,interfaz);
+            public void actionPerformed(ActionEvent e) {
+                ventana_agregar_cliente ventana = new ventana_agregar_cliente(ventana_agregar_pedido.this, interfaz);
+                ventana.setVisible(true);
             }
         });
-        agregar_cliente.setPreferredSize(new Dimension(400,100));
-        add(agregar_cliente);
+        agregar_cliente.setPreferredSize(new Dimension(400, 100));
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        centro.add(agregar_cliente, gbc);
+
+        JButton boton_agregar= new JButton("agregar pedido");
+        boton_agregar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                interfaz.registrarPedido(interfaz.pedidos.getid(),repuestos,cant, fecha.getText(),cliente.cliente);
+                interfaz.pedidos.setid(interfaz.pedidos.getid()+1);
+            }
+        });
+        // Añadir el panel central al marco
+        add(centro, BorderLayout.CENTER);
         setVisible(true);
     }
 
-    public void agregar_cliente(JTextField x){
+    // Método para agregar un nuevo cliente al panel
+    public void agregar_cliente(JTextField x) {
         panel.add(x);
         panel.revalidate();
         panel.repaint();
     }
+
+
 }

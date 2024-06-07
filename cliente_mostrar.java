@@ -10,7 +10,7 @@ public class cliente_mostrar {
     }
 
     public void hacer_texto(){
-        String texto=cliente.getid()+" "+cliente.getnombre()+" "+cliente.getdireccion()+" "+cliente.gettelefono()+" "+cliente.getlocalidad()+" "+cliente.getprovincia()+" "+cliente.getemail();
+        String texto=cliente.getid()+" "+cliente.getnombre()+" "+cliente.gettelefono()+" "+cliente.getemail();
         texto_mostrar= new JTextField(texto);
     }
 
