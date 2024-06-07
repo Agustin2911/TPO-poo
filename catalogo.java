@@ -1,17 +1,17 @@
 import java.util.ArrayList;
 
-
-
-
 public class catalogo{
     ArrayList<autoparte>autopartes;
+    private Integer id;
     public catalogo(){
         autopartes=new ArrayList<>();
+        setid(0);
     }
 
 
-    public catalogo(ArrayList<autoparte> x){
+    public catalogo(ArrayList<autoparte> x,Integer i){
         autopartes=x;
+        setid(i);
     }
     public void agregarAutoparte(Integer  id, String denominacion, String descripcion, String categoria, String marca, String vehiculo,
     String precio, Integer stock, Integer stockMinimo, String enlace){
@@ -27,6 +27,13 @@ public class catalogo{
             }
         }
     } 
+    public void setid(Integer i){
+        this.id=i;
+    }
+
+    public Integer getid(){
+        return this.id;
+    }
 
     public void actualizarAutoparte(autoparte x,String denominacion_m, String descripcion_m, String categoria_m, String marca_m, String vehiculo_m,
     String precio_m, Integer stock_m, Integer stockMinimo_m, String enlace_m){

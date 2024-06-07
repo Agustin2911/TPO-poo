@@ -50,10 +50,10 @@ class ventana_agregar_autopartes extends JFrame{
         agregar.setPreferredSize(new Dimension(400,100));
         agregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                Integer id=interfaz.getId_autopartes()+1; 
+                Integer id=interfaz.catalogo.getid()+1; 
                 interfaz.cargarAutoparte(id,denominacion.getText(),descripcion.getText(),categoria.getText(),marca.getText(),auto.getText(),precio.getText(),new Integer(stock.getText()),new Integer(stock_minimo.getText()),enlace.getText());
                 ventana_padre.cargar_elementos();
-                interfaz.setId_autopartes(id);
+                interfaz.catalogo.setid(id);
             }
         });
         JButton limpiar= new JButton("limpiar");

@@ -2,13 +2,16 @@ import java.util.ArrayList;
 
 public class lista_pedidos{
     public ArrayList<pedido>listaPedidos;
+    private Integer id;
 
     public lista_pedidos(){
         listaPedidos=new ArrayList<>();
+        setid(0);
     }
 
-    public lista_pedidos(ArrayList<pedido> x){
+    public lista_pedidos(ArrayList<pedido> x,Integer id_p){
             listaPedidos=x;
+            setid(id_p);
     }
 
     public void agregarPedido(pedido x){
@@ -28,4 +31,11 @@ public class lista_pedidos{
         return -1;
     }
 
+    public void setid(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getid() {
+        return id;
+    }
 }

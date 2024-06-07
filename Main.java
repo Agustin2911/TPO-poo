@@ -1,10 +1,12 @@
 import javax.swing.SwingUtilities;
 import java.io.*;
 
+
 public class Main {
     public static void main(String[] args) {
         registros registro=(registros)cargar_datos();
-        sistemaAutoparte interfaz= new sistemaAutoparte(registro.registro1,registro.registro2,registro.registro3,registro.getId_autopartes());
+        //POR SI SE JODE DEVUELTA--> sistemaAutoparte interfaz= new sistemaAutoparte(new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),0,0,0,0);
+		sistemaAutoparte interfaz= new sistemaAutoparte(registro.registro1,registro.registro2,registro.registro3,registro.registro4,registro.getid_autopartes(),registro.getid_pedidos(),registro.getid_ventas(),registro.getid_clientes());
         SwingUtilities.invokeLater(() -> {
             gui ex = new gui(interfaz);
             ex.setVisible(true);

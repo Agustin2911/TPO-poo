@@ -6,13 +6,16 @@ public class pedido implements Serializable{
     private Integer idPedido;
     public ArrayList<autoparte>productos;
     public ArrayList<Integer>cantidades;
+    private String fecha;
     private cliente cliente;
 
-    public pedido(Integer id,ArrayList<autoparte> autopartes,ArrayList<Integer> cant,cliente cliente_pedido){
+    public pedido(Integer id,ArrayList<autoparte> autopartes,ArrayList<Integer> cant,String f,cliente cliente_pedido){
         setidPedido(id);
         productos=autopartes;
         cantidades=cant;
+        setfecha(f);
         setcliente(cliente_pedido);
+        
     }
     public void agregarProductos(autoparte prodcuto,Integer cantidad){
 
@@ -35,5 +38,12 @@ public class pedido implements Serializable{
 
     public cliente getcliente(){
         return this.cliente;
+    }
+
+    public void setfecha(String f){
+        this.fecha=f;
+    }
+    public String getfecha(){
+        return fecha;
     }
 }

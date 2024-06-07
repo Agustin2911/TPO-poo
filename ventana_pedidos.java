@@ -8,7 +8,8 @@ public class ventana_pedidos extends JFrame{
     private ScrollPane barra;
     private ArrayList<JButton> lista_botones;
     public JButton boton_seleccionado;
-    ventana_pedidos (){
+    ventana_pedidos (sistemaAutoparte x){
+        sistemaAutoparte interfaz=x;
         JFrame ventana_hija= new JFrame();
         ventana_hija.setLayout(new BorderLayout());
         ventana_hija.setSize(1200,600);
@@ -24,7 +25,7 @@ public class ventana_pedidos extends JFrame{
         boton_agregar_pedido.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-
+                ventana_agregar_pedido ventana= new ventana_agregar_pedido(interfaz);
             }
         });
         JButton boton_eliminar_autoparte= new JButton("eliminar pedido");
