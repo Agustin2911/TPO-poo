@@ -72,4 +72,8 @@ public class sistemaAutoparte {
             
 		}
 	}
+    public autoparte buscAutoparte(String denominacion){
+        return catalogo.buscarAutoparte(denominacion);
+
+    } 
 }

@@ -12,10 +12,14 @@ public class ventana_agregar_pedido extends JFrame {
     private sistemaAutoparte interfaz; // Interfaz al sistema (se asume que está definido en otra parte)
     public cliente_mostrar cliente;
     public ArrayList<autoparte> repuestos;
-    public ArrayList<Integer> cant;
-    public ventana_agregar_pedido(sistemaAutoparte x) {
+    public ArrayList<Integer> cantidad_r;
+    public ventana_pedidos ventana_padre;
+    public ventana_agregar_pedido(ventana_pedidos y,sistemaAutoparte x) {
         interfaz = x;
-
+        ventana_padre=y;
+        repuestos=new ArrayList<>();
+        cantidad_r=new ArrayList<>();
+        
         // Configuración de la ventana
         setSize(800, 600);
         setLayout(new BorderLayout());
@@ -50,8 +54,8 @@ public class ventana_agregar_pedido extends JFrame {
         gbc.gridwidth = 1;
         centro.add(etiqueta_agregar, gbc);
         
-        autoparte[] opciones = {};
-        JComboBox<autoparte> comboBox = new JComboBox<>(opciones);
+        String[] opciones=agregar_autopartes();
+        JComboBox<String> comboBox = new JComboBox<>(opciones);
         comboBox.setPreferredSize(new Dimension(150, 30));
         gbc.gridx=1;
         gbc.gridy=1;
@@ -65,6 +69,11 @@ public class ventana_agregar_pedido extends JFrame {
         centro.add(cantidad,gbc);      
         JButton agregarButton = new JButton("Agregar");
         agregarButton.setPreferredSize(new Dimension(100, 30));
+        agregarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                agregar_boton((String)comboBox.getSelectedItem(),cantidad.getText());
+            }
+        });
         gbc.gridx=3;
         gbc.gridy=1;
         gbc.gridwidth=1;
@@ -104,20 +113,30 @@ public class ventana_agregar_pedido extends JFrame {
                 ventana.setVisible(true);
             }
         });
-        agregar_cliente.setPreferredSize(new Dimension(400, 100));
+        agregar_cliente.setPreferredSize(new Dimension(200, 100));
         gbc.gridx = 0;
         gbc.gridy = 4;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 1;
         centro.add(agregar_cliente, gbc);
 
         JButton boton_agregar= new JButton("agregar pedido");
+        boton_agregar.setPreferredSize(new Dimension(200, 100));
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        gbc.gridwidth = 1;
         boton_agregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                interfaz.registrarPedido(interfaz.pedidos.getid(),repuestos,cant, fecha.getText(),cliente.cliente);
+                for (Component comp : botones.getComponents()) {
+                        JButton btn = (JButton) comp;
+                        String[] text=(btn.getText()).split(" ");
+                        agregar(text[0],new Integer(text[1]));
+                }
+                ventana_padre.cargar_elementos();
+                interfaz.registrarPedido(interfaz.pedidos.getid(),repuestos,cantidad_r, fecha.getText(),cliente.cliente);
                 interfaz.pedidos.setid(interfaz.pedidos.getid()+1);
             }
         });
-        // Añadir el panel central al marco
+        centro.add(boton_agregar,gbc);
         add(centro, BorderLayout.CENTER);
         setVisible(true);
     }
@@ -129,5 +148,36 @@ public class ventana_agregar_pedido extends JFrame {
         panel.repaint();
     }
 
+    public String[] agregar_autopartes(){
+       Integer largo= interfaz.catalogo.autopartes.size();
+       String [] opciones= new String[largo];
+       Integer cant=0;
+       for (autoparte i : interfaz.catalogo.autopartes){
+            opciones[cant]=i.denominacion;
+            cant++;
+       }
+       return opciones;
+       
+    }
 
+    public void elementos(){
+
+    }
+    public void agregar(String nombre,Integer cant){
+        repuestos.add(buscarAutoparte(nombre));
+        cantidad_r.add(cant);
+    }
+    public autoparte buscarAutoparte(String nombre){
+        return interfaz.buscAutoparte(nombre);
+    }
+
+    public void agregar_boton(String autoparte,String num){
+        String a=autoparte+" "+num;
+        JButton boton =new JButton(a);
+        boton.setPreferredSize(new Dimension(400,50));
+        botones.add(boton);
+        barra.revalidate();
+        barra.repaint();
+    }
+    
 }

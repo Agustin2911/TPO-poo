@@ -7,9 +7,10 @@ public class ventana_pedidos extends JFrame{
     private JPanel botones;
     private ScrollPane barra;
     private ArrayList<JButton> lista_botones;
-    public JButton boton_seleccionado;
+    public pedidos_mostrar boton_seleccionado;
+    sistemaAutoparte interfaz;
     ventana_pedidos (sistemaAutoparte x){
-        sistemaAutoparte interfaz=x;
+        interfaz=x;
         JFrame ventana_hija= new JFrame();
         ventana_hija.setLayout(new BorderLayout());
         ventana_hija.setSize(1200,600);
@@ -25,7 +26,7 @@ public class ventana_pedidos extends JFrame{
         boton_agregar_pedido.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                ventana_agregar_pedido ventana= new ventana_agregar_pedido(interfaz);
+                ventana_agregar_pedido ventana= new ventana_agregar_pedido(ventana_pedidos.this,interfaz);
             }
         });
         JButton boton_eliminar_autoparte= new JButton("eliminar pedido");
@@ -53,34 +54,37 @@ public class ventana_pedidos extends JFrame{
         botones=new JPanel();
         botones.setLayout(new BoxLayout(botones, BoxLayout.Y_AXIS));
         barra.add(botones);
+        cargar_elementos();
 
     }
     private void eliminar() {
         if (boton_seleccionado != null) {
-            lista_botones.remove(boton_seleccionado);
-            botones.remove(boton_seleccionado);
+            Integer id=boton_seleccionado.id_elemento();
+            interfaz.eliminarAutoparte(id);
+            botones.remove(boton_seleccionado.boton_final);
             botones.revalidate();
             botones.repaint();
             boton_seleccionado = null; // Resetear el botón seleccionado
         }
     }
-    public void agregar(String [] e){
-        JButton boton =new JButton(String.format("%s %s %s %s %s %s %s %s  ",e[0], e[1],e[2],e[4],e[5],e[6],e[7],e[8]));
-        boton.setPreferredSize(new Dimension(800, 100));
-        boton.setMinimumSize(new Dimension(800, 100));
-        boton.setMaximumSize(new Dimension(800, 100));
-        
-        boton.setBackground(new Color(0, 102, 204)); // Cambiar el color de fondo del botón
-        boton.setForeground(Color.WHITE);
-        boton.addActionListener(new ActionListener() {
-            @Override 
-            public void actionPerformed(ActionEvent e){
-                boton_seleccionado=boton;
-        }
-        });
-        lista_botones.add(boton);
-        botones.add(boton);            
-        barra.revalidate();
-        barra.repaint();
-}
+    public void cargar_elementos(){
+        lista_botones=new ArrayList<>();
+        botones.removeAll();
+        barra.add(botones);
+        for(pedido i:interfaz.pedidos.listaPedidos){
+            pedidos_mostrar elemento=new pedidos_mostrar(i);
+            JButton boton=elemento.boton();
+            boton.addActionListener(new ActionListener() {
+                @Override 
+                public void actionPerformed(ActionEvent e){
+                    boton_seleccionado=elemento;
+                }
+            }
+            );
+            lista_botones.add(boton);
+            botones.add(boton);
+        }            
+            barra.revalidate();
+            barra.repaint();
+    }
 }

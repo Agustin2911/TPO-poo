@@ -5,6 +5,7 @@ import java.awt.*;
 public class stock_mostrar extends JFrame {
     public autoparte autoparte;
     public JButton boton_final;
+    public String nombre;
     public stock_mostrar(autoparte x){
         this.autoparte=x;
     }
@@ -23,4 +24,5 @@ public class stock_mostrar extends JFrame {
     public Integer id_elemento(){
         return autoparte.getid();
     } 
+    
 }

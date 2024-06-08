@@ -79,7 +79,14 @@ public class catalogo{
             }
             return -1;
     } 
-
+    public autoparte buscarAutoparte(String nombre){   
+        for(autoparte i :autopartes){
+            if(i.denominacion.equals(nombre)){
+                return i;
+            }       
+        }
+        return null;
+} 
     public void stockMinimo(){
         for (autoparte i: autopartes){
             if(i.getstock()<=i.getstock_minimo()){
