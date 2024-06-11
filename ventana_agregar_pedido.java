@@ -23,7 +23,7 @@ public class ventana_agregar_pedido extends JFrame {
         // Configuración de la ventana
         setSize(800, 600);
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       
 
         // Configuración del panel central
         JPanel centro = new JPanel();
@@ -130,10 +130,12 @@ public class ventana_agregar_pedido extends JFrame {
                         JButton btn = (JButton) comp;
                         String[] text=(btn.getText()).split(" ");
                         agregar(text[0],new Integer(text[1]));
+                        interfaz.eliminar_stock(text[0],new Integer(text[1]));
                 }
-                ventana_padre.cargar_elementos();
-                interfaz.registrarPedido(interfaz.pedidos.getid(),repuestos,cantidad_r, fecha.getText(),cliente.cliente);
+                interfaz.registrarPedido(interfaz.pedidos.getid(),repuestos,cantidad_r, entrada_fecha.getText(),cliente.cliente);
                 interfaz.pedidos.setid(interfaz.pedidos.getid()+1);
+                ventana_padre.cargar_elementos();
+                
             }
         });
         centro.add(boton_agregar,gbc);

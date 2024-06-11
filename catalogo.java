@@ -94,4 +94,8 @@ public class catalogo{
             }
         }
     }
+    public void restar_stock(String parte,Integer cant){
+        autoparte autoparte=buscarAutoparte(parte);
+        autoparte.setstock((autoparte.getstock())-cant);
+    }
 }

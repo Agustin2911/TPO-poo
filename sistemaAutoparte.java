@@ -60,13 +60,13 @@ public class sistemaAutoparte {
 		try{
 			FileOutputStream fout = new FileOutputStream("datos.bin");
 			ObjectOutputStream out = new ObjectOutputStream(fout);
+        
 			//Serialization:
 			out.writeObject(obj);    
 			out.close();
 			return true;
 		}
 		catch(Exception ex){
-            System.out.print("ttttt");
             return false;
             
             
@@ -76,4 +76,15 @@ public class sistemaAutoparte {
         return catalogo.buscarAutoparte(denominacion);
 
     } 
+
+    public void eliminarpedido(Integer id ){
+        pedidos.eliminarPedido(id);
+    }
+    public void eliminar_stock(String parte, Integer cant){
+        catalogo.restar_stock(parte, cant);
+    }
+
+    public void devolver_stock(Integer id){
+        pedidos.devolver_stock(id);
+    }
 }

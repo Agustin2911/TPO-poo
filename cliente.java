@@ -13,7 +13,7 @@ public class cliente implements Serializable{
     private String email;
     
     public cliente(Integer id_c, String nombre_c, String direccion_c, String telefono_c, String localidad_c, String provincia_c, String email_c) {
-        setid(id);
+        setid(id_c);
         setnombre(nombre_c);
         setdireccion(direccion_c);
         settelefono(telefono_c);

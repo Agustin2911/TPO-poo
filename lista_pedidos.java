@@ -38,4 +38,15 @@ public class lista_pedidos{
     public Integer getid() {
         return id;
     }
+
+    public void devolver_stock(Integer id){
+        Integer id_p=buscarPedidos(id);
+        pedido pedido= listaPedidos.get(id_p);
+        System.out.println("aaaaaaaaaaaaa");
+        for (Integer i=0;i!=pedido.productos.size();i++){
+            autoparte parte=pedido.productos.get(i);
+            parte.setstock((parte.getstock())+pedido.cantidades.get(i));
+        }   
+    }
+
 }

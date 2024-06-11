@@ -17,9 +17,6 @@ public class pedido implements Serializable{
         setcliente(cliente_pedido);
         
     }
-    public void agregarProductos(autoparte prodcuto,Integer cantidad){
-
-    }
     public void eliminarProducto(autoparte autoparte){
         productos.remove(autoparte);
     }

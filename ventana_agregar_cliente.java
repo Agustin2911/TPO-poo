@@ -32,6 +32,7 @@ public class ventana_agregar_cliente extends JFrame{
             public void actionPerformed(ActionEvent e){
                 cliente cliente =new cliente(interfaz.clientes.getid(),entrada_nombre.getText(),entrada_direccion.getText(),entrada_telefono.getText(),entrada_localidad.getText(),entrada_provincia.getText(),entrada_email.getText());
                 cliente_mostrar mostrar=new cliente_mostrar(cliente);
+                interfaz.clientes.setid((interfaz.clientes.getid())+1);
                 ventana_padre.agregar_cliente(mostrar.texto());
                 ventana_padre.cliente=mostrar;
             }
