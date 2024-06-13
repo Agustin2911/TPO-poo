@@ -132,7 +132,7 @@ public class ventana_agregar_pedido extends JFrame {
                 for (Component comp : botones.getComponents()) {
                         JButton btn = (JButton) comp;
                         String[] text=(btn.getText()).split(" ");
-                        agregar(text[0],new Integer(text[1]));
+                        agregar(text[0],Integer.valueOf(text[1]));
                 }
                 interfaz.registrarPedido(interfaz.pedidos.getid(),repuestos,cantidad_r, entrada_fecha.getText(),cliente.cliente);
                 interfaz.pedidos.setid(interfaz.pedidos.getid()+1);
