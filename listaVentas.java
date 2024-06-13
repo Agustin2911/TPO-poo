@@ -21,7 +21,7 @@ public class listaVentas{
 
     public Integer buscarVenta(Integer id){   
         for(venta i :ventas){
-            if(i.id==id){
+            if(i.getid()==id){
                 return ventas.indexOf(i);
             }       
         }

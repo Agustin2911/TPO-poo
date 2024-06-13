@@ -46,7 +46,7 @@ public class catalogo{
         ap.vehiculo=vehiculo_m;
         ap.setprecio(precio_m);
         ap.setstock(stock_m);
-        ap.setstock(stockMinimo_m);                
+        ap.setstock_minimo(stockMinimo_m);                
         ap.enlace=enlace_m;
     }
     
@@ -94,8 +94,7 @@ public class catalogo{
             }
         }
     }
-    public void restar_stock(String parte,Integer cant){
-        autoparte autoparte=buscarAutoparte(parte);
-        autoparte.setstock((autoparte.getstock())-cant);
+    public void restar_stock(autoparte parte,Integer cant){
+        parte.setstock((parte.getstock())-cant);
     }
 }

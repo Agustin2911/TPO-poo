@@ -50,7 +50,7 @@ public class ventana_modificar_autopartes {
         modificar.setPreferredSize(new Dimension(400,100));
         modificar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){ 
-                interfaz.modificarAutoparte(elemento.autoparte,denominacion.getText(),descripcion.getText(),categoria.getText(),marca.getText(),auto.getText(),precio.getText(),new Integer (stock.getText()),new Integer(stock_minimo.getText()),enlace.getText());
+                interfaz.modificarAutoparte(elemento.autoparte,denominacion.getText(),descripcion.getText(),categoria.getText(),marca.getText(),auto.getText(),precio.getText(),Integer.valueOf(stock.getText()),Integer.valueOf(stock_minimo.getText()),enlace.getText());
                 ventana_padre.modificar_elemento();
             }
         });

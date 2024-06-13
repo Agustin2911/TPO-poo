@@ -39,10 +39,6 @@ public class ventana_pedidos extends JFrame{
             }
         });
         contenedor_derecho.add(boton_eliminar_autoparte);
-        JButton boton_modificar_pedido= new JButton("modificar pedido");
-        boton_modificar_pedido.setBackground(new Color(0, 102, 204)); // Cambiar el color de fondo del botón
-        boton_modificar_pedido.setForeground(Color.WHITE); // Cambiar el color del texto a blanco
-        contenedor_derecho.add(boton_modificar_pedido);
         ventana_hija.setVisible(true);
         JPanel contenedor_izquierdo=new JPanel();
         contenedor_izquierdo.setSize(800,600);
@@ -60,7 +56,6 @@ public class ventana_pedidos extends JFrame{
     private void eliminar() {
         if (boton_seleccionado != null) {
             Integer id=boton_seleccionado.id_elemento();
-            interfaz.devolver_stock(id);
             interfaz.eliminarpedido(id);
             botones.remove(boton_seleccionado.boton_final);
             botones.revalidate();

@@ -62,8 +62,7 @@ class gui extends JFrame {
         boton_registrar_ventas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Llamar al método especificado cuando se presione el botón
-                System.out.println(getName());
+                ventana_ventas ventana= new ventana_ventas(interfaz);
             }
         });
 

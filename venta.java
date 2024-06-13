@@ -2,21 +2,44 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 public class venta implements Serializable{
-    public Integer id;
+    private Integer id;
+    private String nombre;
     public ArrayList<detalleVenta> lista_detalles;
-    private Float subTotal=0f;
     private  metodoDePago metodoDePago; 
     private Float total;
 
-    public venta(Integer id_v,ArrayList<autoparte>autopartes,ArrayList<Integer>cantidades,String formaPago){
-        id=id_v;
+    public venta(Integer id_v,String nombre_v,ArrayList<autoparte>autopartes,ArrayList<Integer>cantidades,metodoDePago formaPago){
+        lista_detalles=new ArrayList<>();
+        setid(id_v);
+        setNombre(nombre_v);
         ventaSinPedido(autopartes, cantidades);
-        tipoDePago(formaPago);
+        setmetodoDePago(formaPago);
+        settotal(metodoDePago.gettotal());
+        
     }
 
-    public venta(String formaPago,pedido pedido){
-            ventaXPedido(pedido);
-            tipoDePago(formaPago);
+    public venta(Integer id_v,String nombre_v,metodoDePago formaPago,pedido pedido){
+        setid(id_v);
+        setNombre(nombre_v);
+        ventaXPedido(pedido);
+        setmetodoDePago(metodoDePago);
+        settotal(metodoDePago.gettotal());
+        
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setid(Integer id) {
+        this.id = id;
+    }
+    public Integer getid() {
+        return id;
     }
 
     public void ventaXPedido(pedido pedido){
@@ -24,7 +47,6 @@ public class venta implements Serializable{
             Integer index=pedido.productos.indexOf(i);
             lista_detalles.add(new detalleVenta(i.getid(),pedido.cantidades.get(index),Float.parseFloat( i.getprecio())));
         }
-        generarSubTotal();
     }
 
     public void ventaSinPedido(ArrayList<autoparte>autopartes,ArrayList<Integer>cantidades){
@@ -32,20 +54,8 @@ public class venta implements Serializable{
             Integer index=autopartes.indexOf(i);
             lista_detalles.add(new detalleVenta(i.getid(),cantidades.get(index),Float.parseFloat(i.getprecio())));
         }
-        generarSubTotal();
-    }
-    public void setsubTotal(float i){
-        this.subTotal+=i;
-    }
-    public float getsubTotal(){
-        return this.subTotal;
     }
 
-    public void generarSubTotal(){
-        for (detalleVenta i : lista_detalles){
-            setsubTotal(i.precioUnitario);
-        }
-    }
 
     public void setmetodoDePago(metodoDePago x){
         this.metodoDePago=x;
@@ -61,10 +71,7 @@ public class venta implements Serializable{
     public Float gettotal(){
         return total;
     }
-    public void tipoDePago (String formaPago){
-        setmetodoDePago(new metodoDePago(formaPago,getsubTotal()));
-        settotal(getmetodoDePago().gettotal());
-    }
+
 
 
 }

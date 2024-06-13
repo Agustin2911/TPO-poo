@@ -24,9 +24,6 @@ public class sistemaAutoparte {
        catalogo.actualizarAutoparte(x, denominacion,  descripcion, categoria,  marca,  vehiculo,precio, stock, stockMinimo, enlace);
     } 
 
-    public void modificarStock( Integer id, Integer cantNueva) {
-        catalogo.modificarStock(id,cantNueva);
-    }
 
     public void eliminarAutoparte( Integer id) {
         catalogo.eliminarAutoparte(id);
@@ -49,10 +46,16 @@ public class sistemaAutoparte {
         pedidos.eliminarPedido(idPedido);
     }
 
-    public void iniciarVentaDirecta(Integer id_v,ArrayList<autoparte>autopartes,ArrayList<Integer>cantidades,String formaPago) {
-        ventas.agregarventa(new venta( id_v,autopartes,cantidades,formaPago));
+    public void iniciarVentaDirecta(Integer id_v,String nombre,ArrayList<autoparte>autopartes,ArrayList<Integer>cantidades,metodoDePago formaPago) {
+        ventas.agregarventa(new venta(id_v,nombre,autopartes,cantidades,formaPago));
     }
 
+    public void ventaXPedido(Integer id_v,String nombre_v,metodoDePago formaPago,pedido pedido){
+        ventas.agregarventa(new venta(id_v,nombre_v,formaPago,pedido));
+    }
+    public void eliminarVenta(Integer id){
+        ventas.eliminarVenta(id);
+    }
     public void monitorearStockMinimo() {
         catalogo.stockMinimo();
     }
@@ -80,11 +83,20 @@ public class sistemaAutoparte {
     public void eliminarpedido(Integer id ){
         pedidos.eliminarPedido(id);
     }
-    public void eliminar_stock(String parte, Integer cant){
+    public void eliminar_stock(autoparte parte, Integer cant){
         catalogo.restar_stock(parte, cant);
     }
 
     public void devolver_stock(Integer id){
         pedidos.devolver_stock(id);
+    }
+
+    public Integer calcular_subtotales(autoparte ap,Integer cant){
+        return Integer.valueOf(ap.getprecio())*cant;
+    }
+
+
+    public boolean hay_stock(autoparte autoparte,Integer cant){
+        return autoparte.getstock()>=cant;
     }
 }
