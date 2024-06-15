@@ -27,6 +27,8 @@ public class ventana_agregar_cliente extends JFrame{
         JLabel etiqueta_email= new JLabel("email del cliente:");
         JTextField entrada_email = new JTextField();
         JButton boton_agregar=new JButton("agregar cliente");
+        boton_agregar.setForeground(Color.WHITE);
+        boton_agregar.setBackground(new Color(0, 102, 204));
         boton_agregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 cliente cliente =new cliente(interfaz.clientes.getid(),entrada_nombre.getText(),entrada_direccion.getText(),entrada_telefono.getText(),entrada_localidad.getText(),entrada_provincia.getText(),entrada_email.getText());
@@ -37,6 +39,18 @@ public class ventana_agregar_cliente extends JFrame{
             }
         });
         JButton boton_limpiar=new JButton("limpiar");
+        boton_limpiar.setForeground(Color.WHITE);
+        boton_limpiar.setBackground(new Color(0, 102, 204));
+        boton_limpiar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                entrada_nombre.setText("");
+                entrada_direccion.setText("");
+                entrada_telefono.setText("");
+                entrada_localidad.setText("");
+                entrada_provincia.setText("");
+                entrada_email.setText("");
+            }
+        });
         add(etiqueta_nombre);
         add(entrada_nombre);
         add(etiqueta_direccion);
@@ -82,6 +96,18 @@ public class ventana_agregar_cliente extends JFrame{
             }
         });
         JButton boton_limpiar=new JButton("limpiar");
+        boton_limpiar.setForeground(Color.WHITE);
+        boton_limpiar.setBackground(new Color(0, 102, 204));
+        boton_limpiar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                entrada_nombre.setText("");
+                entrada_direccion.setText("");
+                entrada_telefono.setText("");
+                entrada_localidad.setText("");
+                entrada_provincia.setText("");
+                entrada_email.setText("");
+            }
+        });
         add(etiqueta_nombre);
         add(entrada_nombre);
         add(etiqueta_direccion);

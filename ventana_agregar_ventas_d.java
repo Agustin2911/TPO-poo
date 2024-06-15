@@ -44,6 +44,7 @@ public class ventana_agregar_ventas_d extends JFrame {
         centro.add(fecha, gbc);
 
         JTextField entrada_fecha = new JTextField(String.valueOf(dia));
+        entrada_fecha.setEnabled(false);
         entrada_fecha.setPreferredSize(new Dimension(150, 30));
         gbc.gridx = 1;
         gbc.gridy = 0;

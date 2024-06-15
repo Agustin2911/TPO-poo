@@ -39,7 +39,7 @@ public class ventana_tipo_de_venta extends JFrame {
         venta_pedido.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle venta pedido action
+                ventana_agregar_ventas_p ventan= new ventana_agregar_ventas_p(ventana_padre, x);
             }
         });
 

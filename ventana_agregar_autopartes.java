@@ -48,6 +48,8 @@ class ventana_agregar_autopartes extends JFrame{
         enlace.setPreferredSize(new Dimension(400,100));
         JButton agregar= new JButton("agregar autoparte");
         agregar.setPreferredSize(new Dimension(400,100));
+        agregar.setBackground(new Color(0, 102, 204));
+        agregar.setForeground(Color.WHITE);
         agregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 Integer id=interfaz.catalogo.getid()+1; 
@@ -57,7 +59,24 @@ class ventana_agregar_autopartes extends JFrame{
             }
         });
         JButton limpiar= new JButton("limpiar");
+        limpiar.setForeground(Color.WHITE);
+        limpiar.setBackground(new Color(0, 102, 204));
         limpiar.setSize(new Dimension(400,100));
+        limpiar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                denominacion.setText("");
+                descripcion.setText("");
+                scrollDescripcion.revalidate();
+                scrollDescripcion.repaint();
+                categoria.setText("");
+                marca.setText("");
+                auto.setText("");
+                precio.setText("");
+                stock.setText("");
+                stock_minimo.setText("");
+                enlace.setText("");
+            }
+        });
         ventana.add(titulo_denominacion);
         ventana.add(denominacion);
         ventana.add(titulo_descripcion);

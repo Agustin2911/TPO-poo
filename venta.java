@@ -19,10 +19,11 @@ public class venta implements Serializable{
     }
 
     public venta(Integer id_v,String nombre_v,metodoDePago formaPago,pedido pedido){
+        lista_detalles=new ArrayList<>();
         setid(id_v);
         setNombre(nombre_v);
         ventaXPedido(pedido);
-        setmetodoDePago(metodoDePago);
+        setmetodoDePago(formaPago);
         settotal(metodoDePago.gettotal());
         
     }

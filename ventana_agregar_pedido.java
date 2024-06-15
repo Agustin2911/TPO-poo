@@ -42,6 +42,7 @@ public class ventana_agregar_pedido extends JFrame {
         centro.add(fecha, gbc);
 
         JTextField entrada_fecha = new JTextField(String.valueOf(dia));
+        entrada_fecha.setEnabled(false);
         entrada_fecha.setPreferredSize(new Dimension(150, 30));
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -69,6 +70,7 @@ public class ventana_agregar_pedido extends JFrame {
         centro.add(cantidad,gbc);      
         JButton agregarButton = new JButton("Agregar");
         agregarButton.setBackground(new Color(0, 102, 204));
+        agregarButton.setForeground(Color.WHITE);
         agregarButton.setPreferredSize(new Dimension(100, 30));
         agregarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
@@ -109,6 +111,7 @@ public class ventana_agregar_pedido extends JFrame {
 
         JButton agregar_cliente = new JButton("Agregar cliente");
         agregar_cliente.setBackground(new Color(0, 102, 204));
+        agregar_cliente.setForeground(Color.WHITE);
         agregar_cliente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ventana_agregar_cliente ventana = new ventana_agregar_cliente(ventana_agregar_pedido.this, interfaz);
@@ -127,9 +130,12 @@ public class ventana_agregar_pedido extends JFrame {
         gbc.gridy = 4;
         gbc.gridwidth = 1;
         boton_agregar.setBackground(new Color(0, 102, 204));
+        boton_agregar.setForeground(Color.WHITE);
         boton_agregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                for (Component comp : botones.getComponents()) {
+
+                if(cliente!=null &&getComponentCount() != 0) {
+                    for (Component comp : botones.getComponents()) {
                         JButton btn = (JButton) comp;
                         String[] text=(btn.getText()).split(" ");
                         agregar(text[0],Integer.valueOf(text[1]));
@@ -137,7 +143,21 @@ public class ventana_agregar_pedido extends JFrame {
                 interfaz.registrarPedido(interfaz.pedidos.getid(),repuestos,cantidad_r, entrada_fecha.getText(),cliente.cliente);
                 interfaz.pedidos.setid(interfaz.pedidos.getid()+1);
                 ventana_padre.cargar_elementos();
-                
+                }
+                else{
+                    if(cliente==null){
+                        JOptionPane.showMessageDialog(null, 
+                            "el pedido no se puede realizar porque no hay cliente", 
+                      "no hay cliente", 
+                            JOptionPane.ERROR_MESSAGE);
+                    }
+                    else if(botones.getComponentCount() == 0){
+                        JOptionPane.showMessageDialog(null, 
+                            "el pedido no tiene autorepuestos, porfavor ingresar", 
+                      "no hay autorepuestos", 
+                            JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
         });
         centro.add(boton_agregar,gbc);
@@ -182,6 +202,7 @@ public class ventana_agregar_pedido extends JFrame {
         boton.setMaximumSize(new Dimension(415, 50));
         boton.setMinimumSize(new Dimension(415, 50));
         boton.setBackground(new Color(0, 102, 204));
+        boton.setForeground(Color.WHITE);
         botones.add(boton);
         barra.revalidate();
         barra.repaint();
