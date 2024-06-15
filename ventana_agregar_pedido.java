@@ -122,8 +122,8 @@ public class ventana_agregar_pedido extends JFrame {
         seleccionar_cliente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cliente x=(cliente)clientes.getSelectedItem();
-                cliente_mostrar c= new cliente_mostrar(x);
-                agregar_cliente(c.texto_mostrar);
+                cliente= new cliente_mostrar(x);
+                agregar_cliente(cliente.texto_mostrar);
             }
         });
         centro.add(seleccionar_cliente, gbc);
@@ -164,7 +164,9 @@ public class ventana_agregar_pedido extends JFrame {
                     for (Component comp : botones.getComponents()) {
                         JButton btn = (JButton) comp;
                         String[] text=(btn.getText()).split(" ");
-                        agregar(text[0],Integer.valueOf(text[1]));
+                        autoparte ap=interfaz.buscAutoparte(text[0]);
+                        agregar(ap,Integer.valueOf(text[1]));
+                        interfaz.eliminar_stock(ap,Integer.valueOf(text[1]));
                 }
                 interfaz.registrarPedido(interfaz.pedidos.getid(),repuestos,cantidad_r, entrada_fecha.getText(),cliente.cliente);
                 interfaz.pedidos.setid(interfaz.pedidos.getid()+1);
@@ -204,6 +206,7 @@ public class ventana_agregar_pedido extends JFrame {
         centro.add(panel, gbc);
         centro.revalidate();
         centro.repaint();
+        
     }
 
 
@@ -222,8 +225,8 @@ public class ventana_agregar_pedido extends JFrame {
     public void elementos(){
 
     }
-    public void agregar(String nombre,Integer cant){
-        repuestos.add(buscarAutoparte(nombre));
+    public void agregar(autoparte autoparte,Integer cant){
+        repuestos.add(autoparte);
         cantidad_r.add(cant);
     }
     public autoparte buscarAutoparte(String nombre){
@@ -231,20 +234,31 @@ public class ventana_agregar_pedido extends JFrame {
     }
 
     public void agregar_boton(String autoparte,String num){
-        String a=autoparte+" "+num;
-        JButton boton =new JButton(a);
-        boton.setPreferredSize(new Dimension(415, 50));
-        boton.setMaximumSize(new Dimension(415, 50));
-        boton.setMinimumSize(new Dimension(415, 50));
-        boton.setBackground(new Color(0, 102, 204));
-        boton.setForeground(Color.WHITE);
-        botones.add(boton);
-        barra.revalidate();
-        barra.repaint();
+        autoparte ap=interfaz.buscAutoparte(autoparte);
+        boolean stocK_ok=interfaz.hay_stock(ap,Integer.valueOf(num));
+        if(!stocK_ok){
+                JOptionPane.showMessageDialog(null, 
+                "no hay suficiente stock de la autoparte: "+ap.denominacion+" el stock actual es de: "+String.valueOf(ap.getstock()), 
+          "Error no hay suficiente stock", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            String a=autoparte+" "+num;
+            JButton boton =new JButton(a);
+            agregar(ap,Integer.valueOf(num));
+            boton.setPreferredSize(new Dimension(415, 50));
+            boton.setMaximumSize(new Dimension(415, 50));
+            boton.setMinimumSize(new Dimension(415, 50));
+            boton.setBackground(new Color(0, 102, 204));
+            boton.setForeground(Color.WHITE);
+            botones.add(boton);
+            botones.revalidate();
+            botones.repaint();
+
+    }
     }
     
     public void cargar_combobox(){
-        System.out.println(interfaz.clientes.clientes.size());
         for (cliente i :interfaz.clientes.clientes){
             clientes.addItem(i);
         }

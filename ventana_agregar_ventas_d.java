@@ -306,7 +306,6 @@ public class ventana_agregar_ventas_d extends JFrame {
         }
 
     public void cargar_combobox(){
-        System.out.println(interfaz.clientes.clientes.size());
         for (cliente i :interfaz.clientes.clientes){
             clientes.addItem(i);
         }

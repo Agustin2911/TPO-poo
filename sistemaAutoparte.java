@@ -83,10 +83,13 @@ public class sistemaAutoparte {
     public void eliminarpedido(Integer id ){
         pedidos.eliminarPedido(id);
     }
+
+    //eliminar stock en el pedido
     public void eliminar_stock(autoparte parte, Integer cant){
         catalogo.restar_stock(parte, cant);
     }
 
+    //para el pedido
     public void devolver_stock(Integer id){
         pedidos.devolver_stock(id);
     }

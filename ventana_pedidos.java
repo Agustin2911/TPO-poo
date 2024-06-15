@@ -56,6 +56,7 @@ public class ventana_pedidos extends JFrame{
     private void eliminar() {
         if (boton_seleccionado != null) {
             Integer id=boton_seleccionado.id_elemento();
+            interfaz.devolver_stock(id);
             interfaz.eliminarpedido(id);
             botones.remove(boton_seleccionado.boton_final);
             botones.revalidate();
