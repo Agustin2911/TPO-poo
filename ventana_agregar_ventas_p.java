@@ -12,7 +12,6 @@ public class ventana_agregar_ventas_p extends JFrame {
     public sistemaAutoparte interfaz; 
     public cliente_mostrar cliente;
     public ventana_ventas ventana_padre;
-    public Integer total_c;
     public JTextField total_entrada;
     public pedidos_mostrar boton_Seleccionado;
     public ArrayList<JButton> lista_botones;
@@ -20,7 +19,6 @@ public class ventana_agregar_ventas_p extends JFrame {
     public ventana_agregar_ventas_p(ventana_ventas y,sistemaAutoparte x) {
         interfaz = x;
         ventana_padre=y;
-        total_c=0;
         setSize(1000, 600);
         setLayout(new BorderLayout());
        
@@ -56,6 +54,7 @@ public class ventana_agregar_ventas_p extends JFrame {
        
         JComboBox<String> metodoPagoComboBox = new JComboBox<>(new String[]{"Efectivo", "Tarjeta de Crédito", "Débito"});
         metodoPagoComboBox.setBounds(50, 30, 50, 25);
+        metodoPagoComboBox.setBackground(Color.WHITE);
         gbc.gridx = 1;
         gbc.gridy = 1;
         centro.add(metodoPagoComboBox,gbc);
@@ -64,6 +63,7 @@ public class ventana_agregar_ventas_p extends JFrame {
         JComboBox<Integer>cuotasComboBox = new JComboBox<>(new Integer[]{2, 3,6});
         cuotasComboBox.setBounds(50, 70, 50, 25);
         cuotasComboBox.setEnabled(false);
+        cuotasComboBox.setBackground(Color.WHITE);
         gbc.gridx = 2;
         gbc.gridy = 1;
         centro.add(cuotasComboBox,gbc);
@@ -97,7 +97,7 @@ public class ventana_agregar_ventas_p extends JFrame {
         barra.add(botones);
 
 
-        JLabel total= new JLabel("Total: ");
+        JLabel total= new JLabel("Total:$ ");
         total.setPreferredSize(new Dimension(50, 30));
         gbc.gridx=2;
         gbc.gridy=2;
@@ -126,7 +126,7 @@ public class ventana_agregar_ventas_p extends JFrame {
                     cont+=Integer.valueOf(ap.getprecio())*cant;
                     if((ap.getstock())<cant){
                         JOptionPane.showMessageDialog(null, 
-                            "la venta no se ha podido concretar porque la autoparte "+ap.denominacion+" tiene una stock de "+ap.getstock()+" el pedido requiere "+cant, 
+                            "la venta no se puede realizar porque la autoparte "+ap.denominacion+" tiene una stock de "+ap.getstock()+" el pedido requiere "+cant, 
                             "venta ok", 
                             JOptionPane.ERROR_MESSAGE);
                     }
@@ -174,13 +174,13 @@ public class ventana_agregar_ventas_p extends JFrame {
                 metodoDePago forma_de_pago;
                 switch ((String)metodoPagoComboBox.getSelectedItem()) {
                         case "Efectivo":
-                            forma_de_pago=new efectivo(Float.valueOf(total_c));
+                            forma_de_pago=new efectivo(Float.valueOf(total_entrada.getText()));
                             break;
                         case "Tarjeta de Crédito":
-                            forma_de_pago=new TarjetaDeCredito(Float.valueOf(total_c),(Integer)cuotasComboBox.getSelectedItem());
+                            forma_de_pago=new TarjetaDeCredito(Float.valueOf(total_entrada.getText()),(Integer)cuotasComboBox.getSelectedItem());
                             break;
                         case "Débito":
-                            forma_de_pago= new debito(total_c);
+                            forma_de_pago= new debito(Float.valueOf(total_entrada.getText()));
                             break;
                     
                         default:

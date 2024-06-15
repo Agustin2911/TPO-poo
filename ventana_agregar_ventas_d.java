@@ -53,6 +53,7 @@ public class ventana_agregar_ventas_d extends JFrame {
 
         JComboBox<String> metodoPagoComboBox = new JComboBox<>(new String[]{"Efectivo", "Tarjeta de Crédito", "Débito"});
         metodoPagoComboBox.setBounds(50, 30, 200, 25);
+        metodoPagoComboBox.setBackground(Color.WHITE);
         gbc.gridx = 2;
         gbc.gridy = 0;
         centro.add(metodoPagoComboBox,gbc);
@@ -61,6 +62,7 @@ public class ventana_agregar_ventas_d extends JFrame {
         JComboBox<Integer>cuotasComboBox = new JComboBox<>(new Integer[]{2, 3,6});
         cuotasComboBox.setBounds(50, 70, 200, 25);
         cuotasComboBox.setEnabled(false);
+        cuotasComboBox.setBackground(Color.WHITE);
         gbc.gridx = 3;
         gbc.gridy = 0;
         centro.add(cuotasComboBox,gbc);
@@ -110,6 +112,7 @@ public class ventana_agregar_ventas_d extends JFrame {
             }
         });
         agregarButton.setBackground(new Color(0, 102, 204));
+        agregarButton.setForeground(Color.WHITE);
         gbc.gridx=3;
         gbc.gridy=1;
         gbc.gridwidth=1;
@@ -129,7 +132,7 @@ public class ventana_agregar_ventas_d extends JFrame {
         barra.add(botones);
 
 
-        JLabel total= new JLabel("Total: ");
+        JLabel total= new JLabel("Total$: ");
         total.setPreferredSize(new Dimension(80, 30));
         gbc.gridx=2;
         gbc.gridy=2;
@@ -166,6 +169,7 @@ public class ventana_agregar_ventas_d extends JFrame {
         });
         agregar_cliente.setPreferredSize(new Dimension(200, 100));
         agregar_cliente.setBackground(new Color(0, 102, 204));
+        agregar_cliente.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.gridwidth = 1;
@@ -177,6 +181,7 @@ public class ventana_agregar_ventas_d extends JFrame {
         gbc.gridy = 4;
         gbc.gridwidth = 1;
         boton_agregar.setBackground(new Color(0, 102, 204));
+        boton_agregar.setForeground(Color.WHITE);
         boton_agregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 for(Integer i=0;i!=repuestos.size();i++){
@@ -261,6 +266,7 @@ public class ventana_agregar_ventas_d extends JFrame {
             boton.setMaximumSize(new Dimension(415, 50));
             boton.setMinimumSize(new Dimension(415, 50));
             boton.setBackground(new Color(0, 102, 204));
+            boton.setForeground(Color.WHITE);
             botones.add(boton);
             total_c+=interfaz.calcular_subtotales(ap,Integer.valueOf(num));            
             total_entrada.setText(String.valueOf(total_c));

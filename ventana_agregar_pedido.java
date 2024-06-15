@@ -58,6 +58,7 @@ public class ventana_agregar_pedido extends JFrame {
         String[] opciones=agregar_autopartes();
         JComboBox<String> comboBox = new JComboBox<>(opciones);
         comboBox.setPreferredSize(new Dimension(150, 30));
+        comboBox.setBackground(Color.WHITE);
         gbc.gridx=1;
         gbc.gridy=1;
         gbc.gridwidth=1;
@@ -134,7 +135,7 @@ public class ventana_agregar_pedido extends JFrame {
         boton_agregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
 
-                if(cliente!=null &&getComponentCount() != 0) {
+                if(cliente!=null && botones.getComponentCount() != 0) {
                     for (Component comp : botones.getComponents()) {
                         JButton btn = (JButton) comp;
                         String[] text=(btn.getText()).split(" ");
@@ -153,7 +154,7 @@ public class ventana_agregar_pedido extends JFrame {
                     }
                     else if(botones.getComponentCount() == 0){
                         JOptionPane.showMessageDialog(null, 
-                            "el pedido no tiene autorepuestos, porfavor ingresar", 
+                            "el pedido no tiene autorepuestos, porfavor ingresar autopartes", 
                       "no hay autorepuestos", 
                             JOptionPane.ERROR_MESSAGE);
                     }

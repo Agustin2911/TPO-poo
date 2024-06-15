@@ -9,7 +9,7 @@ public class venta_mostrar {
     }
 
     public JButton boton(){
-        JButton boton =new JButton(String.format("%s %s %s ",venta.getid(),venta.getNombre(),venta.gettotal()));
+        JButton boton =new JButton(String.format("%s %s $%s ",venta.getid(),venta.getNombre(),venta.gettotal()));
         boton.setPreferredSize(new Dimension(800, 100));
         boton.setMinimumSize(new Dimension(800, 100));
         boton.setMaximumSize(new Dimension(800, 100));

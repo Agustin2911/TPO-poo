@@ -23,8 +23,8 @@ public class ventana_tipo_de_venta extends JFrame {
         Dimension buttonSize = new Dimension(250, 50);
         venta_directa.setPreferredSize(buttonSize);
         venta_pedido.setPreferredSize(buttonSize);
-        venta_directa.setBackground(new Color(65, 105, 225)); // Azul Francia (Royal Blue)
-        venta_pedido.setBackground(new Color(65, 105, 225)); // Azul Francia (Royal Blue)
+        venta_directa.setBackground(new Color(0, 102, 204)); // Azul Francia (Royal Blue)
+        venta_pedido.setBackground(new Color(0, 102, 204)); // Azul Francia (Royal Blue)
         venta_directa.setForeground(Color.WHITE);
         venta_pedido.setForeground(Color.WHITE);
 

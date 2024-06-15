@@ -48,6 +48,8 @@ public class ventana_modificar_autopartes {
         enlace.setPreferredSize(new Dimension(400,100));
         JButton modificar= new JButton("modificar autoparte");
         modificar.setPreferredSize(new Dimension(400,100));
+        modificar.setForeground(Color.WHITE);
+        modificar.setBackground(new Color(0, 102, 204));
         modificar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){ 
                 interfaz.modificarAutoparte(elemento.autoparte,denominacion.getText(),descripcion.getText(),categoria.getText(),marca.getText(),auto.getText(),precio.getText(),Integer.valueOf(stock.getText()),Integer.valueOf(stock_minimo.getText()),enlace.getText());
