@@ -43,6 +43,7 @@ public class ventana_agregar_cliente extends JFrame{
                 interfaz.clientes.setid((interfaz.clientes.getid())+1);
                 ventana_padre.agregar_cliente(mostrar.texto());
                 ventana_padre.cliente=mostrar;
+                interfaz.agregar_clientes(cliente);
             }
             else{
                 JOptionPane.showMessageDialog(null, 

@@ -99,4 +99,9 @@ public class sistemaAutoparte {
     public boolean hay_stock(autoparte autoparte,Integer cant){
         return autoparte.getstock()>=cant;
     }
+
+
+    public void agregar_clientes(cliente x){
+        clientes.agregar_cliente(x);
+    }
 }

@@ -64,4 +64,9 @@ public class cliente implements Serializable{
     public String getemail(){
         return this.email;
     }
+
+    @Override
+    public String toString(){
+        return getid()+" "+getnombre()+" "+getdireccion();
+    }
 }

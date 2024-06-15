@@ -16,6 +16,11 @@ public class ventana_agregar_ventas_d extends JFrame {
     public ventana_ventas ventana_padre;
     public Integer total_c;
     public JTextField total_entrada;
+    public JComboBox<cliente> clientes;
+    public JButton seleccionar_cliente;
+    public JButton agregar_cliente;
+    public JPanel centro;
+    public GridBagConstraints gbc;
     public ventana_agregar_ventas_d(ventana_ventas y,sistemaAutoparte x) {
         interfaz = x;
         ventana_padre=y;
@@ -28,10 +33,10 @@ public class ventana_agregar_ventas_d extends JFrame {
        
 
         // Configuración del panel central
-        JPanel centro = new JPanel();
+        centro = new JPanel();
         centro.setPreferredSize(new Dimension(600, 400));
         centro.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
+        gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
@@ -149,18 +154,33 @@ public class ventana_agregar_ventas_d extends JFrame {
         // Panel para componentes dinámicos
         panel = new JPanel();
         panel.setPreferredSize(new Dimension(400, 100));
+        
+
+        clientes=new JComboBox<>();
+        cargar_combobox();
         gbc.gridx = 1;
         gbc.gridy = 3;
         gbc.gridwidth = 2;
-        centro.add(panel, gbc);
+        centro.add(clientes, gbc);
 
-        JLabel titulo_cliente=new JLabel("cliente: ");
-        gbc.gridx=0;
-        gbc.gridy=3;
-        gbc.gridwidth=1;
-        centro.add(titulo_cliente,gbc);
+        seleccionar_cliente= new JButton("seleccionar cliente");
+        seleccionar_cliente.setForeground(Color.WHITE);
+        seleccionar_cliente.setBackground(new Color(0, 102, 204));
+        gbc.gridx = 3;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        seleccionar_cliente.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cliente x=(cliente)clientes.getSelectedItem();
+                cliente_mostrar c= new cliente_mostrar(x);
+                agregar_cliente(c.texto_mostrar);
+            }
+        });
+        centro.add(seleccionar_cliente, gbc);
 
-        JButton agregar_cliente = new JButton("Agregar cliente");
+
+
+        agregar_cliente = new JButton("Agregar cliente");
         agregar_cliente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ventana_agregar_cliente ventana = new ventana_agregar_cliente(ventana_agregar_ventas_d.this, interfaz);
@@ -224,9 +244,16 @@ public class ventana_agregar_ventas_d extends JFrame {
 
     // Método para agregar un nuevo cliente al panel
     public void agregar_cliente(JTextField x) {
+        centro.remove(clientes);
+        centro.remove(seleccionar_cliente);
+        centro.remove(agregar_cliente);
         panel.add(x);
-        panel.revalidate();
-        panel.repaint();
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        centro.add(panel, gbc);
+        centro.revalidate();
+        centro.repaint();
     }
 
     public String[] agregar_autopartes(){
@@ -278,5 +305,10 @@ public class ventana_agregar_ventas_d extends JFrame {
         
         }
 
-    
+    public void cargar_combobox(){
+        System.out.println(interfaz.clientes.clientes.size());
+        for (cliente i :interfaz.clientes.clientes){
+            clientes.addItem(i);
+        }
+    }
 }
