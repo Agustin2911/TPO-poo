@@ -9,8 +9,6 @@ public class ventana_agregar_ventas_d extends JFrame {
     private ScrollPane barra; // ScrollPane para hacer los botones desplazables
     private sistemaAutoparte interfaz; // Interfaz al sistema (se asume que está definido en otra parte)
     public cliente_mostrar cliente;
-    public ArrayList<autoparte> repuestos;
-    public ArrayList<Integer> cantidad_r;
     public ventana_ventas ventana_padre;
     public Integer total_c;
     public JTextField total_entrada;
@@ -24,8 +22,6 @@ public class ventana_agregar_ventas_d extends JFrame {
     public ventana_agregar_ventas_d(ventana_ventas y,sistemaAutoparte x) {
         interfaz = x;
         ventana_padre=y;
-        repuestos=new ArrayList<>();
-        cantidad_r=new ArrayList<>();
         total_c=0;
         pedido_en_proceso=new pedidoEnProceso();
         dataSaved=false;
@@ -130,8 +126,6 @@ public class ventana_agregar_ventas_d extends JFrame {
                 if(x){
                     pedido_en_proceso.agregar_autopartes(ap,cant);
                     interfaz.eliminar_stock(ap, cant);
-                    repuestos.add(ap);
-                    cantidad_r.add(cant);
                 }
             }
         });
@@ -223,13 +217,8 @@ public class ventana_agregar_ventas_d extends JFrame {
         boton_agregar.setForeground(Color.WHITE);
         boton_agregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                for(Integer i=0;i!=repuestos.size();i++){
-                        autoparte repuesto= repuestos.get(i);
-                        Integer cant= cantidad_r.get(i);
-                        interfaz.eliminar_stock(repuesto,cant);
-                        
-                    }
-                    metodoDePago forma_de_pago;
+                if(cliente!=null){
+                metodoDePago forma_de_pago;
                     switch ((String)metodoPagoComboBox.getSelectedItem()) {
                         case "Efectivo":
                             forma_de_pago=new efectivo(Float.valueOf(total_c));
@@ -245,15 +234,22 @@ public class ventana_agregar_ventas_d extends JFrame {
                             forma_de_pago=null;
                             break;
                     }
-                interfaz.iniciarVentaDirecta(interfaz.ventas.getid(),cliente.cliente.getnombre(), repuestos, cantidad_r,forma_de_pago);
+                interfaz.iniciarVentaDirecta(interfaz.ventas.getid(),cliente.cliente.getnombre(), pedido_en_proceso.devolver_productos(), pedido_en_proceso.devolver_cantidades(),forma_de_pago);
                 interfaz.ventas.setid(interfaz.ventas.getid()+1);
                 ventana_padre.cargar_elementos();
+                dataSaved=true;
                 
                 JOptionPane.showMessageDialog(null, 
                             "la venta se ha concretado correctamente", 
                       "venta ok", 
                             JOptionPane.INFORMATION_MESSAGE);
-                
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, 
+                            "seleccione un cliente para realizar la venta", 
+                      "seleccionar cliente", 
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         centro.add(boton_agregar,gbc);
@@ -287,11 +283,7 @@ public class ventana_agregar_ventas_d extends JFrame {
        
     }
 
-    public void agregar(autoparte autoparte,Integer cant){
-        repuestos.add(autoparte);
-        cantidad_r.add(cant);
-        
-    }
+
     public autoparte buscarAutoparte(String nombre){
         return interfaz.buscAutoparte(nombre);
     }
@@ -308,8 +300,7 @@ public class ventana_agregar_ventas_d extends JFrame {
         else{
             String a=ap.denominacion+" "+num;
             JButton boton =new JButton(a);
-            agregar(ap,num);
-            total_c+=Integer.valueOf(ap.getprecio());
+            total_c+=Integer.valueOf(ap.getprecio())*num;
             boton.setPreferredSize(new Dimension(415, 50));
             boton.setMaximumSize(new Dimension(415, 50));
             boton.setMinimumSize(new Dimension(415, 50));

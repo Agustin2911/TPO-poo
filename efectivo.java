@@ -11,6 +11,6 @@ public class efectivo extends metodoDePago {
     public float calculartotal() {
         
         float subtotal = getsubTotal();
-        return subtotal +(subtotal * 0.10f);
+        return subtotal -(subtotal * 0.10f);
     }
 }

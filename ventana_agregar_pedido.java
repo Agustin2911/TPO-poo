@@ -14,8 +14,6 @@ public class ventana_agregar_pedido extends JFrame {
     private ScrollPane barra; // ScrollPane para hacer los botones desplazables
     private sistemaAutoparte interfaz; // Interfaz al sistema (se asume que está definido en otra parte)
     public cliente_mostrar cliente;
-    public ArrayList<autoparte> repuestos;
-    public ArrayList<Integer> cantidad_r;
     public ventana_pedidos ventana_padre;
     public JComboBox<cliente> clientes;
     public JButton seleccionar_cliente;
@@ -27,8 +25,6 @@ public class ventana_agregar_pedido extends JFrame {
     public ventana_agregar_pedido(ventana_pedidos y,sistemaAutoparte x) {
         interfaz = x;
         ventana_padre=y;
-        repuestos=new ArrayList<>();
-        cantidad_r=new ArrayList<>();
         pedido_en_proceso=new pedidoEnProceso();
         dataSaved=false;
         // Configuración de la ventana
@@ -101,8 +97,7 @@ public class ventana_agregar_pedido extends JFrame {
                 if(x){
                     pedido_en_proceso.agregar_autopartes(ap,cant);
                     interfaz.eliminar_stock(ap, cant);
-                    repuestos.add(ap);
-                    cantidad_r.add(cant);
+                    
                 }
             }
         });
@@ -185,7 +180,7 @@ public class ventana_agregar_pedido extends JFrame {
 
                 if(cliente!=null && botones.getComponentCount() != 0) {
                 
-                interfaz.registrarPedido(interfaz.pedidos.getid(),repuestos,cantidad_r, entrada_fecha.getText(),cliente.cliente);
+                interfaz.registrarPedido(interfaz.pedidos.getid(),pedido_en_proceso.devolver_productos(),pedido_en_proceso.devolver_cantidades(), entrada_fecha.getText(),cliente.cliente);
                 interfaz.pedidos.setid(interfaz.pedidos.getid()+1);
                 ventana_padre.cargar_elementos();
                 dataSaved=true;
@@ -240,16 +235,7 @@ public class ventana_agregar_pedido extends JFrame {
        
     }
 
-    public void elementos(){
 
-    }
-    public void agregar(autoparte autoparte,Integer cant){
-        repuestos.add(autoparte);
-        cantidad_r.add(cant);
-    }
-    public autoparte buscarAutoparte(String nombre){
-        return interfaz.buscAutoparte(nombre);
-    }
 
     public boolean agregar_boton(autoparte ap,Integer num){
         boolean stocK_ok=interfaz.hay_stock(ap,Integer.valueOf(num));
@@ -263,7 +249,6 @@ public class ventana_agregar_pedido extends JFrame {
         else{
             String a=ap.denominacion+" "+num;
             JButton boton =new JButton(a);
-            agregar(ap,num);
             boton.setPreferredSize(new Dimension(415, 50));
             boton.setMaximumSize(new Dimension(415, 50));
             boton.setMinimumSize(new Dimension(415, 50));
