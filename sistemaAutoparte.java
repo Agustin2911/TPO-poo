@@ -93,6 +93,9 @@ public class sistemaAutoparte {
     public void devolver_stock(Integer id){
         pedidos.devolver_stock(id);
     }
+    public void devolver_stock(ArrayList<autoparte> x, ArrayList<Integer>y){
+        pedidos.devolver_stock(x,y);
+    }
 
     public Integer calcular_subtotales(autoparte ap,Integer cant){
         return Integer.valueOf(ap.getprecio())*cant;

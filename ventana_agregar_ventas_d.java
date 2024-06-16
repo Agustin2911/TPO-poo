@@ -2,9 +2,7 @@ import javax.swing.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import java.awt.event.*;
 public class ventana_agregar_ventas_d extends JFrame {
     private JPanel panel; // Panel para mostrar componentes añadidos dinámicamente
     private JPanel botones; // Panel para contener botones
@@ -21,16 +19,29 @@ public class ventana_agregar_ventas_d extends JFrame {
     public JButton agregar_cliente;
     public JPanel centro;
     public GridBagConstraints gbc;
+    public pedidoEnProceso pedido_en_proceso;
+    public boolean dataSaved;
     public ventana_agregar_ventas_d(ventana_ventas y,sistemaAutoparte x) {
         interfaz = x;
         ventana_padre=y;
         repuestos=new ArrayList<>();
         cantidad_r=new ArrayList<>();
         total_c=0;
+        pedido_en_proceso=new pedidoEnProceso();
+        dataSaved=false;
         // Configuración de la ventana
         setSize(800, 600);
         setLayout(new BorderLayout());
-       
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if (!dataSaved) {
+                    interfaz.devolver_stock(pedido_en_proceso.devolver_productos(),pedido_en_proceso.devolver_cantidades());
+                }
+                dispose();
+            }
+        });
 
         // Configuración del panel central
         centro = new JPanel();
@@ -113,7 +124,15 @@ public class ventana_agregar_ventas_d extends JFrame {
         agregarButton.setPreferredSize(new Dimension(100, 30));
         agregarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                agregar_boton((String)comboBox.getSelectedItem(),cantidad.getText());
+                autoparte ap =interfaz.buscAutoparte((String)comboBox.getSelectedItem());
+                Integer cant=Integer.valueOf(cantidad.getText());
+                boolean x=agregar_boton(ap,cant);
+                if(x){
+                    pedido_en_proceso.agregar_autopartes(ap,cant);
+                    interfaz.eliminar_stock(ap, cant);
+                    repuestos.add(ap);
+                    cantidad_r.add(cant);
+                }
             }
         });
         agregarButton.setBackground(new Color(0, 102, 204));
@@ -172,8 +191,8 @@ public class ventana_agregar_ventas_d extends JFrame {
         seleccionar_cliente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cliente x=(cliente)clientes.getSelectedItem();
-                cliente_mostrar c= new cliente_mostrar(x);
-                agregar_cliente(c.texto_mostrar);
+                cliente= new cliente_mostrar(x);
+                agregar_cliente(cliente.texto_mostrar);
             }
         });
         centro.add(seleccionar_cliente, gbc);
@@ -271,39 +290,41 @@ public class ventana_agregar_ventas_d extends JFrame {
     public void agregar(autoparte autoparte,Integer cant){
         repuestos.add(autoparte);
         cantidad_r.add(cant);
+        
     }
     public autoparte buscarAutoparte(String nombre){
         return interfaz.buscAutoparte(nombre);
     }
 
-    public void agregar_boton(String autoparte,String num){
-        autoparte ap=interfaz.buscAutoparte(autoparte);
+    public boolean agregar_boton(autoparte ap,Integer num){
         boolean stocK_ok=interfaz.hay_stock(ap,Integer.valueOf(num));
         if(!stocK_ok){
                 JOptionPane.showMessageDialog(null, 
                 "no hay suficiente stock de la autoparte: "+ap.denominacion+" el stock actual es de: "+String.valueOf(ap.getstock()), 
           "Error no hay suficiente stock", 
                 JOptionPane.ERROR_MESSAGE);
+            return false;
         }
         else{
-            String a=autoparte+" "+num;
+            String a=ap.denominacion+" "+num;
             JButton boton =new JButton(a);
-            agregar(ap,Integer.valueOf(num));
+            agregar(ap,num);
+            total_c+=Integer.valueOf(ap.getprecio());
             boton.setPreferredSize(new Dimension(415, 50));
             boton.setMaximumSize(new Dimension(415, 50));
             boton.setMinimumSize(new Dimension(415, 50));
             boton.setBackground(new Color(0, 102, 204));
             boton.setForeground(Color.WHITE);
             botones.add(boton);
-            total_c+=interfaz.calcular_subtotales(ap,Integer.valueOf(num));            
             total_entrada.setText(String.valueOf(total_c));
-            barra.revalidate();
-            barra.repaint();
             total_entrada.revalidate();
             total_entrada.repaint();
-        }
-        
-        }
+            botones.revalidate();
+            botones.repaint();
+            return true;
+    }
+
+    }
 
     public void cargar_combobox(){
         for (cliente i :interfaz.clientes.clientes){

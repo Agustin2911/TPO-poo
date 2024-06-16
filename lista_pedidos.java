@@ -47,5 +47,10 @@ public class lista_pedidos{
             parte.setstock((parte.getstock())+pedido.cantidades.get(i));
         }   
     }
-
+    public void devolver_stock(ArrayList<autoparte>x,ArrayList<Integer> y){
+        for (Integer i=0;i!=x.size();i++){
+            autoparte parte=x.get(i);
+            parte.setstock((parte.getstock())+y.get(i));
+        }   
+    }
 }

@@ -12,8 +12,8 @@ class gui extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                dispose();
                 interfaz.guardar_datos(new registros(interfaz.catalogo.autopartes,interfaz.pedidos.listaPedidos,interfaz.ventas.ventas,interfaz.clientes.clientes,interfaz.catalogo.getid(),interfaz.pedidos.getid(),interfaz.ventas.getid(),interfaz.clientes.getid()));
+                System.exit(0);
             }
         });
         setSize(1200, 600);

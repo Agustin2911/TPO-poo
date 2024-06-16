@@ -20,7 +20,7 @@ class ventana_agregar_autopartes extends JFrame{
         JFrame ventana=new JFrame();
         ventana.setSize(new Dimension(800,600));
         ventana.setLayout(new GridLayout(10,2,20,20));
-        JLabel titulo_denominacion=new JLabel("ingrese la denominacion del auto: ");
+        JLabel titulo_denominacion=new JLabel("ingrese la denominacion del autoparte: ");
         titulo_denominacion.setPreferredSize(new Dimension(400,100));
         denominacion= new JTextField();
         denominacion.setPreferredSize(new Dimension(400,100));
@@ -39,7 +39,7 @@ class ventana_agregar_autopartes extends JFrame{
         titulo_auto.setPreferredSize(new Dimension(400,100));
         auto = new JTextField();
         auto.setPreferredSize(new Dimension(400,100));
-        JLabel titulo_precio= new JLabel("ingrese el precio del  autoparte: ");
+        JLabel titulo_precio= new JLabel("ingrese el precio del  autoparte: $");
         titulo_precio.setPreferredSize(new Dimension(400,100));
         precio = new JTextField();
         precio.setPreferredSize(new Dimension(400,100));
