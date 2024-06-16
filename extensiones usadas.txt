@@ -1,0 +1,8 @@
+editor de texto usado : visual studio code
+extensiones de visual studio code: 
+-Extension Pack for Java
+-Debugger for Java
+-Test Runner for Java
+-Maven for Java
+-Project Manager for Java
+-Language Support for Java(TM) by Red Hat
