@@ -118,28 +118,21 @@ public class ventana_agregar_ventas_p extends JFrame {
             public void actionPerformed(ActionEvent e){
             if(boton_Seleccionado!=null){    
                 pedido pedido = boton_Seleccionado.pedido;
-                boolean estado_pedido=true;
                 Integer cont=0;
                 for (Integer i=0 ; pedido.productos.size()!=i;i++){
                     autoparte ap=pedido.productos.get(i);
                     Integer cant=pedido.cantidades.get(i);
                     cont+=Integer.valueOf(ap.getprecio())*cant;
-                    if((ap.getstock())<cant){
-                        JOptionPane.showMessageDialog(null, 
-                            "la venta no se puede realizar porque la autoparte "+ap.denominacion+" tiene una stock de "+ap.getstock()+" el pedido requiere "+cant, 
-                            "venta ok", 
-                            JOptionPane.ERROR_MESSAGE);
-                    }
                 }
-                if(estado_pedido){
-                    pedido_final=pedido;
-                    total_entrada.setText(String.valueOf(cont));
-                    cliente cliente= pedido_final.getcliente();
-                    cliente_mostrar mostrar=new cliente_mostrar(cliente);
-                    entrada_cliente.add(mostrar.texto_mostrar);
-                    entrada_cliente.revalidate();
-                    entrada_cliente.repaint();
-                }
+            
+                pedido_final=pedido;
+                total_entrada.setText(String.valueOf(cont));
+                cliente cliente= pedido_final.getcliente();
+                cliente_mostrar mostrar=new cliente_mostrar(cliente);
+                entrada_cliente.add(mostrar.texto_mostrar);
+                entrada_cliente.revalidate();
+                entrada_cliente.repaint();
+            
             }
         }});
         gbc.gridx=0;
